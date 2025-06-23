@@ -4,78 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dulpan Adi Saragih • Donasi Digital</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+
     <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
     <link rel="shortcut icon" href="favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="PAY TO DULPAN AS" />
     <link rel="manifest" href="favicon/site.webmanifest" />
+
     <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #6366F1, #3B82F6);
-            --secondary-gradient: linear-gradient(135deg, #10B981, #34D399);
-        }
-        body { 
-            font-family: 'Inter', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        body {
             background: linear-gradient(160deg, #0F172A, #1E293B, #0F172A);
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
-        .glow-button:hover {
-            box-shadow: 0px 0px 15px 3px rgba(99, 102, 241, 0.8);
-            transform: scale(1.05);
+
+        .container {
+            min-height: 5%;
+            padding: 2rem;
+            text-align: center;
         }
-        .loading-bar {
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, #6366F1, #3B82F6);
-            animation: loading 2s linear infinite;
+            height: 100%;
+            z-index: -1;
         }
-        @keyframes loading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: moveUp 10s infinite linear;
         }
-    </style>
-</head>
-<body class="flex items-center justify-center p-4 relative">
-    <div class="relative w-full max-w-md bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-indigo-500">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Support Me</h1>
-            <p class="text-gray-300 text-sm tracking-wide">Dulpan Adi Saragih</p>
-        </div>
 
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-400 mb-2">Nominal (IDR)</label>
-                <div class="relative">
-                    <input type="text" id="nominalInput" class="w-full px-4 py-3 bg-slate-800 text-gray-100 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" placeholder="Masukkan Nominal">
-                    <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">IDR</span>
-                </div>
-            </div>
+        @keyframes moveUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
 
-            <!-- Quick Nominal Buttons -->
-            <div class="flex space-x-2">
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(10000)">IDR 1.000</button>
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(25000)">IDR 25.000</button>
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(50000)">IDR 50.000</button>
-            </div>
-            <br>
-            <button id="convertBtn" class="w-full bg-gradient-to-r from-indigo-600 to-teal-500 text-white py-3 rounded-xl hover:opacity-90 glow-button transition duration-300 text-lg font-semibold shadow-xl transform active:scale-95">
-                Pay with Qris
-            </button>
-            <hr>
+        .donation-box {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-  <style>
+        .donation-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
     .payment-button {
       display: flex;
       align-items: center;
       background-color: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: white;
+      color: rgb(235, 199, 0);
       border: none;
       border-radius: 8px;
       padding: 5px 15px;
@@ -94,102 +97,130 @@
       width: 20px;
       height: 20px;
     }
-  </style>
 
-  <a href="/bank-wall.html" button class="payment-button">
+    #copyBtn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    </style>
+</head>
+<body>
+    <div class="particles"></div>
+
+    <div class="container mx-auto">
+        <h1 class="text-5xl font-bold text-blue-400 mb-6">Support Me 🎉</h1>
+        <p class="text-lg text-white mb-8">Pembayaran dapat dilakakan melalui m-Banking & e-Wallet <br>❤️</p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="donation-box p-5 flex flex-col items-center">
+                <img src="/Asset/BRI.png" width="100">
+                <h2 class="text-xl font-semibold text-white">Rekening BRI</h2>
+                <p class="text-lg text-white">0156 0105 8779 509</p>
+                <p class="text-white">Atas nama <i>Dulpan Adi Saragih</i></p>
+                <br>
+                <button id="copyBtn" onclick="copyToClipboard('015601058779509')" class="mt-2 text-blue-400">
+                    <i class="fas fa-copy"></i> <i>🗐 Copy to Clipboard!</i>
+                </button>
+            </div>
+
+            <div class="donation-box p-5 flex flex-col items-center">
+                <img src="/Asset/SEABANK.png" width="100">
+                <h2 class="text-xl font-semibold text-white">Rekening SeaBank</h2>
+                <p class="text-lg text-white">9010 3466 9795</p>
+                <p class="text-white">Atas nama <i>Dulpan Adi Saragih</i></p>
+                <br>
+                <button id="copyBtn" onclick="copyToClipboard('901034669795')" class="mt-2 text-blue-400">
+                    <i class="fas fa-copy"></i> <i>🗐 Copy to Clipboard!</i>
+                </button>
+            </div>
+
+            <div class="donation-box p-5 flex flex-col items-center">
+                <img src="/Asset/DANA.png" width="100"><br>
+                <h2 class="text-xl font-semibold text-white">e-Wallet DANA</h2>
+                <p class="text-lg text-white">0852 2959 2941</p>
+                <p class="text-white">Atas nama <i>Dulpan Adi Saragih</i></p>
+                <br>
+                <button id="copyBtn" onclick="copyToClipboard('085229592941')" class="mt-2 text-blue-400">
+                    <i class="fas fa-copy"></i> <i>🗐 Copy to Clipboard!</i>
+                </button>
+            </div>
+
+            <div class="donation-box p-5 flex flex-col items-center">
+                <img src="/Asset/SPAY.png" width="100">
+                <h2 class="text-xl font-semibold text-white">e-Wallet ShopeePay</h2>
+                <p class="text-lg text-white">0852 2959 2941</p>
+                <p class="text-white">Atas nama <i>Dulpan Adi Saragih</i></p>
+                <br>
+                <button id="copyBtn" onclick="copyToClipboard('085229592941')" class="mt-2 text-blue-400">
+                    <i class="fas fa-copy"></i> <i>🗐 Copy to Clipboard!</i>
+                </button>
+            </div>
+
+            <div class="donation-box p-5 flex flex-col items-center">
+                <img src="/Asset/OVO.png" width="100">
+                <h2 class="text-xl font-semibold text-white">e-Wallet OVO</h2>
+                <p class="text-lg text-white">0852 2959 2941</p>
+                <p class="text-white">Atas nama <i>Dulpan Adi Saragih</i></p>
+                <br>
+                <button id="copyBtn" onclick="copyToClipboard('085229592941')" class="mt-2 text-blue-400">
+                    <i class="fas fa-copy"></i> <i>🗐 Copy to Clipboard!</i>
+                </button>
+            </div>
+
+            <div class="donation-box p-5 flex flex-col items-center">
+                <img src="/Asset/PAYPAL.png" width="100">
+                <h2 class="text-xl font-semibold text-white">Wallet PayPal</h2>
+                <p class="text-lg text-white">0852 2959 2941</p>
+                <p class="text-white">Atas nama <i>Dulpan Adi Saragih</i></p>
+                <br>
+                <a href="https://www.paypal.com/paypalme/dulpansrgih" button id="copyBtn" class="mt-2 text-blue-400">
+                    <i class="fas fa-copy"></i> 💳<i>Pay Now!</i>💳
+                </a>
+            </div>
+        </div>
+
+        <p class="text-lg text-white mt-8">Terima kasih atas dukungan Anda! 🌟 Setiap kontribusi akan membantu kami mencapai lebih banyak.</p>
+<br><br>
+  <a href="/index.html" button class="payment-button">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/>
     </svg>
-    Manual Payment</a>
-
-
-        <div class="mt-6 text-center text-gray-400 text-sm">
-            <p>Setiap <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Kontribusi</span> Membentuk <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Masa Depan</span></p>
-        </div>
-        <br>
-        <div class="mt-6 text-center text-gray-400 text-sm">
-            <p>Powered by 💎</p>
-            <p><span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.dulpanadisaragih.my.id/">Dulpan Adi Saragih </a></span> ||  
-               <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.instagram.com/dulpansrgih_">@dulpansrgih_ </a></span></p>
-        </div>
-    </div>
-
+    PAY WITH QRIS</a>
 
     <script>
-        const STATIC_QRIS = "00020101021126690021ID.CO.BANKMANDIRI.WWW01189360000801165178860211711651788620303UMI51440014ID.CO.QRIS.WWW0215ID10222328889510303UMI5204573253033605802ID5918DULPAN ADI SARAGIH6012Sleman (Kab)61055528562070703A0163046EB4";
-
-        function setNominal(value) {
-            document.getElementById('nominalInput').value = value;
+        const particles = document.querySelector('.particles');
+        const totalParticles = 100;
+        for (let i = 0; i < totalParticles; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            particles.appendChild(star);
         }
 
-        function ConvertCRC16(str) {
-            let crc = 0xFFFF;
-            for (let c = 0; c < str.length; c++) {
-                crc ^= str.charCodeAt(c) << 8;
-                for (let i = 0; i < 8; i++) {
-                    crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
-                }
-            }
-            return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
-        }
-
-        function generateQRCode(text) {
-            const qr = qrcode(0, 'M');
-            qr.addData(text);
-            qr.make();
-
-            Swal.fire({
-                title: 'Scan QR Code',
-                html: `<div class="loading-bar"></div><br>
-                       <p class="text-gray-600">QRIS Generate...</p>`,
-                timer: 1000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    Swal.showLoading();
-                },
-                willClose: () => {
-                    Swal.fire({
-                        title: 'Scan Qris dibawah ini',
-                        html: `<p class="text-gray-600">Terima kasih telah mendukung melalui Qris!</p>
-                               <div class="mt-6"><p class="text-gray-400 text-sm"><i>Tahan QR untuk mengunduh</i></p><img src="${qr.createDataURL(10)}" alt="Kode QR" class="mx-auto" style="max-width: 250px;"></div>`,
-                        confirmButtonText: 'Tutup',
-                        confirmButtonColor: '#3B82F6'                 
-                        
-                        
-                    });
-                }
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Nomor Rekening berhasil di salin! ' + text,
+                });
+            }).catch(err => {
+                console.error("Gagal menyalin: ", err);
             });
         }
-
-        function convertQRIS() {
-            const qty = document.getElementById('nominalInput').value.trim();
-
-            if (!qty || isNaN(qty) || parseInt(qty) < 1) {
-                Swal.fire({ icon: 'error', title: 'Nominal Tidak Valid', text: 'Masukkan angka nominal terlebih dahulu.', confirmButtonColor: '#3B82F6' });
-                return;
-            }
-
-            Swal.fire({
-                title: "Konfirmasi Donasi",
-                text: `Anda akan mendonasikan IDR ${qty}. Lanjutkan?`,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Ya, lanjutkan!",
-                cancelButtonText: "Batal",
-                confirmButtonColor: "#10B981"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let qris = STATIC_QRIS.slice(0, -4);
-                    let step1 = qris.replace("010211", "010212");
-                    let step2 = step1.split("5802ID");
-                    let uang = "54" + qty.length.toString().padStart(2, '0') + qty + "5802ID";
-                    const finalQR = step2[0].trim() + uang + step2[1].trim() + ConvertCRC16(step2[0] + uang + step2[1]);
-                    generateQRCode(finalQR);
-                }
-            });
-        }
-
-        document.getElementById('convertBtn').addEventListener('click', convertQRIS);
     </script>
+
+    <div class="mt-6 text-center text-gray-400 text-sm">
+        <p>Powered by 💎</p>
+        <p><span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-teal-100"><a href="https://www.dulpanadisaragih.my.id/">Dulpan Adi Saragih </a></span> ||  
+        <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-teal-100"><a href="https://www.instagram.com/dulpansrgih_">@dulpansrgih_ </a></span></p>
+    </div>
 </body>
 </html>
