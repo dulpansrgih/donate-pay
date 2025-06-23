@@ -8,6 +8,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="PAY TO DULPAN AS" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #6366F1, #3B82F6);
@@ -38,13 +45,13 @@
 <body class="flex items-center justify-center p-4 relative">
     <div class="relative w-full max-w-md bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-indigo-500">
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Support Dulpan AS</h1>
-            <p class="text-gray-300 text-sm tracking-wide">Transformasi Digital Kebaikan</p>
+            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Support Me</h1>
+            <p class="text-gray-300 text-sm tracking-wide">Dulpan Adi Saragih</p>
         </div>
 
         <div class="space-y-4">
             <div>
-                <label class="block text-sm font-medium text-gray-400 mb-2">Nominal (Rp)</label>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Nominal (IDR)</label>
                 <div class="relative">
                     <input type="text" id="nominalInput" class="w-full px-4 py-3 bg-slate-800 text-gray-100 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" placeholder="Masukkan Nominal">
                     <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">IDR</span>
@@ -57,16 +64,56 @@
                 <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(25000)">IDR 25.000</button>
                 <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(50000)">IDR 50.000</button>
             </div>
-
+            <br>
             <button id="convertBtn" class="w-full bg-gradient-to-r from-indigo-600 to-teal-500 text-white py-3 rounded-xl hover:opacity-90 glow-button transition duration-300 text-lg font-semibold shadow-xl transform active:scale-95">
-                Dapatkan Qris
+                Pay with Qris
             </button>
-        </div>
+            <hr>
+
+  <style>
+    .payment-button {
+      display: flex;
+      align-items: center;
+      background-color: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 15px;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s; 
+    }
+    .payment-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+    .payment-button svg {
+      margin-right: 10px;
+      fill: white;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+
+  <a href="/allpay.html" button class="payment-button">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/>
+    </svg>
+    Manual Payment</a>
+
 
         <div class="mt-6 text-center text-gray-400 text-sm">
             <p>Setiap <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Kontribusi</span> Membentuk <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Masa Depan</span></p>
         </div>
+        <br>
+        <div class="mt-6 text-center text-gray-400 text-sm">
+            <p>Powered by 💎</p>
+            <p><span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.dulpanadisaragih.my.id/">Dulpan Adi Saragih </a></span> ||  
+               <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.instagram.com/dulpansrgih_">@dulpansrgih_ </a></span></p>
+        </div>
     </div>
+
 
     <script>
         const STATIC_QRIS = "00020101021126690021ID.CO.BANKMANDIRI.WWW01189360000801165178860211711651788620303UMI51440014ID.CO.QRIS.WWW0215ID10222328889510303UMI5204573253033605802ID5918DULPAN ADI SARAGIH6012Sleman (Kab)61055528562070703A0163046EB4";
@@ -104,9 +151,10 @@
                     Swal.fire({
                         title: 'Scan Qris dibawah ini',
                         html: `<p class="text-gray-600">Terima kasih telah mendukung melalui Qris!</p>
-                               <div class="mt-4"><p class="text-gray-600">Tahan QR untuk mengunduh</p><img src="${qr.createDataURL(10)}" alt="Kode QR" class="mx-auto" style="max-width: 250px;"></div>`,
+                               <div class="mt-6"><p class="text-gray-400 text-sm"><i>Tahan QR untuk mengunduh</i></p><img src="${qr.createDataURL(10)}" alt="Kode QR" class="mx-auto" style="max-width: 250px;"></div>`,
                         confirmButtonText: 'Tutup',
-                        confirmButtonColor: '#3B82F6'
+                        confirmButtonColor: '#3B82F6'                 
+                        
                         
                     });
                 }
