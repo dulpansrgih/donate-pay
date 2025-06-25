@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dulpan Adi Saragih • Donasi Digital</title>
+    <title>Dulpan Adi Saragih • Support</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -15,6 +15,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="PAY TO DULPAN AS" />
     <link rel="manifest" href="favicon/site.webmanifest" />
+    <!-- Fontawsome -->
+    <script src="https://kit.fontawesome.com/f28d00d089.js" crossorigin="anonymous"></script>
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #6366F1, #3B82F6);
@@ -40,37 +42,7 @@
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
         }
-    </style>
-</head>
-<body class="flex items-center justify-center p-4 relative">
-    <div class="relative w-full max-w-md bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-indigo-500">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Support Me</h1>
-            <p class="text-gray-300 text-sm tracking-wide">Dulpan Adi Saragih</p>
-        </div>
 
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-400 mb-2">Nominal (IDR)</label>
-                <div class="relative">
-                    <input type="text" id="nominalInput" class="w-full px-4 py-3 bg-slate-800 text-gray-100 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" placeholder="Masukkan Nominal">
-                    <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">IDR</span>
-                </div>
-            </div>
-
-            <!-- Quick Nominal Buttons -->
-            <div class="flex space-x-2">
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(10000)">IDR 1.000</button>
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(25000)">IDR 25.000</button>
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(50000)">IDR 50.000</button>
-            </div>
-            <br>
-            <button id="convertBtn" class="w-full bg-gradient-to-r from-indigo-600 to-teal-500 text-white py-3 rounded-xl hover:opacity-90 glow-button transition duration-300 text-lg font-semibold shadow-xl transform active:scale-95">
-                Pay with Qris
-            </button>
-            <hr>
-
-  <style>
     .payment-button {
       display: flex;
       align-items: center;
@@ -94,30 +66,107 @@
       width: 20px;
       height: 20px;
     }
-  </style>
 
-  <a href="/bank-wall.html" button class="payment-button">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/>
-    </svg>
-    Manual Payment</a>
+            .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
 
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: moveUp 10s infinite linear;
+        }
 
-        <div class="mt-6 text-center text-gray-400 text-sm">
-            <p>Setiap <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Kontribusi</span> Membentuk <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Masa Depan</span></p>
+        @keyframes moveUp {
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<div class="particles"></div>
+
+<body class="flex items-center justify-center p-4 relative">
+    <div class="relative w-full max-w-md bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-indigo-500">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Support Me</h1>
+            <p class="text-gray-300 text-sm tracking-wide">Dulpan Adi Saragih</p>
         </div>
-        <br>
-        <div class="mt-6 text-center text-gray-400 text-sm">
-            <p>Powered by 💎</p>
-            <p><span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.dulpanadisaragih.my.id/">Dulpan Adi Saragih </a></span> ||  
+
+        <!-- Label Input Buttons -->
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2"><b>Nominal (IDR)</b>
+                <div class="relative">
+                    <input type="text" id="nominalInput" class="w-full px-4 py-3 bg-slate-800 text-gray-100 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" placeholder="Masukkan Nominal">
+                    <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">IDR</span>
+                </div>
+                <div class="block text-sm font-medium text-gray-600 mb-3"> Pembayaran via <i>Qris</i> minimal 1 Rupiah</div>
+            </div>
+
+            <!-- Quick Nominal Buttons -->
+            <div class="flex space-x-2">
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(10000)">IDR 10.000</button>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(25000)">IDR 25.000</button>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(50000)">IDR 50.000</button>
+            </div>
+            <br>
+            <button id="convertBtn" class="w-full bg-gradient-to-r from-indigo-600 to-teal-500 text-white py-3 rounded-xl hover:opacity-90 glow-button transition duration-300 text-lg font-semibold shadow-xl transform active:scale-95">
+                Pay with Qris
+            </button>
+            <hr>
+
+            <!-- Payment Manual -->
+            <button onclick="location.href='/bank-wall.html';" button class="payment-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/>
+            </svg>
+            Manual Payment
+            </button>
+
+            <!-- Desc Motivation -->
+            <div class="mt-6 text-center text-gray-400 text-sm">
+                <p>Setiap <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Kontribusi</span> Membentuk <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Masa Depan</span></p>
+            </div>
+
+            <!-- Button Store Shop -->
+            <div class="mt-10 text-center text-gray-400 text-sm">
+                <button onclick="location.href='https://tools.dulpanadisaragih.my.id/';"><i class="fa fa-cog" style="color: grey;"></i></button>&emsp;
+                <button onclick="location.href='https://lynk.id/dothebest._';"><i class="fa fa-external-link" style="color: grey;"></i></button>&emsp;    
+                <button onclick="location.href='https://the.dulpanadisaragih.my.id/';"><i class="fa fa-download" style="color: grey;"></i></button>
+            </div>
+            
+            <!-- Footer -->
+            <br>
+            <div class="mt-6 text-center text-gray-400 text-sm">
+                <p>Powered by 💎</p>
+                <p><span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.dulpanadisaragih.my.id/">Dulpan Adi Saragih </a></span> ||  
                <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.instagram.com/dulpansrgih_">@dulpansrgih_ </a></span></p>
+            </div>
         </div>
     </div>
 
-
     <script>
+        /* Script QR */ 
         const STATIC_QRIS = "00020101021126690021ID.CO.BANKMANDIRI.WWW01189360000801165178860211711651788620303UMI51440014ID.CO.QRIS.WWW0215ID10222328889510303UMI5204573253033605802ID5918DULPAN ADI SARAGIH6012Sleman (Kab)61055528562070703A0163046EB4";
 
+        /* Script Label Nominal Input */ 
         function setNominal(value) {
             document.getElementById('nominalInput').value = value;
         }
@@ -133,6 +182,7 @@
             return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
         }
 
+        /* Script Generate Qris */ 
         function generateQRCode(text) {
             const qr = qrcode(0, 'M');
             qr.addData(text);
@@ -155,12 +205,12 @@
                         confirmButtonText: 'Tutup',
                         confirmButtonColor: '#3B82F6'                 
                         
-                        
                     });
                 }
             });
         }
 
+        /* Script Convert Button to Qris */ 
         function convertQRIS() {
             const qty = document.getElementById('nominalInput').value.trim();
 
@@ -189,7 +239,20 @@
             });
         }
 
+        /* Script Result Element */ 
         document.getElementById('convertBtn').addEventListener('click', convertQRIS);
+
+        /* Script Animasi Partical */ 
+        const particles = document.querySelector('.particles');
+        const totalParticles = 100;
+        for (let i = 0; i < totalParticles; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            particles.appendChild(star);
+        }
     </script>
 </body>
 </html>
