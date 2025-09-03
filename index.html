@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-     
+    
     <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
     <link rel="shortcut icon" href="favicon/favicon.ico" />
@@ -25,6 +25,10 @@
             background: linear-gradient(160deg, #0F172A, #1E293B, #0F172A);
             min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
         }
         .glow-button:hover {
             box-shadow: 0px 0px 15px 3px rgba(99, 102, 241, 0.8);
@@ -44,17 +48,17 @@
         .payment-button {
             display: flex;
             align-items: center;
-            justify-content: center; /* Tambah ini untuk center teks/ikon */
+            justify-content: center;
             background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: white;
             border: none;
             border-radius: 8px;
-            padding: 12px 15px; /* Sesuaikan padding agar lebih besar */
-            font-size: 1rem; /* Sesuaikan ukuran font */
+            padding: 12px 15px;
+            font-size: 1rem;
             cursor: pointer;
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, box-shadow 0.2s; 
-            width: 100%; /* Pastikan lebarnya 100% */
+            width: 100%;
         }
         .payment-button:hover {
             transform: translateY(-3px);
@@ -66,7 +70,7 @@
             width: 20px;
             height: 20px;
         }
-         
+        
         .animate-pulse-light {
             animation: pulse-light 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -80,7 +84,7 @@
                 box-shadow: 0px 0px 10px 5px rgba(99, 102, 241, 0.4);
             }
         }
-         
+        
         .manual-payment-container {
             position: relative;
             overflow: hidden;
@@ -88,15 +92,15 @@
         .card-slider {
             display: flex;
             transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-            touch-action: pan-y; /* Memungkinkan scrolling vertikal normal */
+            touch-action: pan-y;
         }
         .payment-card-new {
             flex-shrink: 0;
             width: 100%;
-            padding: 1rem 0.75rem; /* Further reduced padding */
-            border-radius: 1rem; /* Slightly smaller border radius */
+            padding: 1rem 0.75rem;
+            border-radius: 1rem;
             background: linear-gradient(160deg, #0F172A, #1E293B, #0F172A);
-            border: 0.5px solid rgba(79, 70, 229, 0.5); /* Thinner border */
+            border: 0.5px solid rgba(79, 70, 229, 0.5);
             position: relative;
             text-align: center;
             display: flex;
@@ -104,7 +108,7 @@
             align-items: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             transition: all 0.5s ease-in-out;
-            margin-bottom: 1rem; /* Ruang antar kartu dan dots */
+            margin-bottom: 1rem;
         }
         .payment-card-new.active {
             box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
@@ -123,18 +127,18 @@
         }
         .modal-container {
             position: relative;
-            max-width: 350px; /* Lebih kecil lagi untuk modal manual payment */
-            width: 80%; /* Tetap responsif */
+            max-width: 350px;
+            width: 80%;
             margin: 0 auto;
             background: linear-gradient(145deg, #1E293B, #0F172A);
-            border: 1px solid #4F46E5; /* Thinner border */
-            border-radius: 1.25rem; /* Match card border radius */
-            padding: 1.25rem; /* Reduced padding */
+            border: 1px solid #4F46E5;
+            border-radius: 1.25rem;
+            padding: 1.25rem;
         }
         .close-button-container {
             position: absolute;
-            top: 0.5rem; /* Moved closer to the edge */
-            right: 0.5rem; /* Moved closer to the edge */
+            top: 0.5rem;
+            right: 0.5rem;
             z-index: 60;
             transition: transform 0.3s ease-in-out;
         }
@@ -151,509 +155,522 @@
         .swal2-styled.swal2-confirm:hover {
             background-color: #128C7E !important;
         }
-
-        /* Gaya khusus untuk pop-up QR */
-        .swal2-popup.qris-modal {
-            background: linear-gradient(145deg, #1E293B, #0F172A) !important;
-            border: 1px solid #4F46E5 !important; /* Thinner border */
-            border-radius: 1.25rem !important; /* Match other modal radius */
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5) !important;
-            padding: 1rem !important; /* Reduced padding */
-            max-width: 300px; /* Even smaller max-width for the QR modal */
-        }
-        /* Posisi tombol close (X) di luar modal QR */
-        .swal2-container.swal2-center > .swal2-popup > .swal2-close {
-            position: absolute;
-            top: 0.5rem; /* Moved closer to the edge */
-            right: 0.5rem; /* Moved closer to the edge */
-            background-color: transparent;
-            border: none;
-            font-size: 1.5rem; /* Smaller font size for close button */
-            color: #9CA3AF;
-            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-            z-index: 10;
-            padding: 0;
-            margin: 0;
-        }
-        .swal2-container.swal2-center > .swal2-popup > .swal2-close:hover {
-            color: #FFFFFF;
-            transform: scale(1.2);
-        }
-        /* Styling untuk SVG di dalam tombol SweetAlert */
         .swal2-styled .button-icon {
-            width: 18px; /* Slightly smaller icons */
-            height: 18px; /* Slightly smaller icons */
-            margin-right: 6px; /* Reduced margin */
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
             fill: currentColor;
             vertical-align: middle;
         }
-         
-        /* Penyesuaian agar SVG dan teks sejajar */
         .swal2-actions > button {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.875rem; /* Smaller button text */
-            padding: 0.625rem 1rem; /* Reduced button padding */
+            font-size: 0.875rem;
+            padding: 0.625rem 1rem;
         }
         .swal2-actions > button svg {
-            margin-right: 6px; /* Reduced margin */
+            margin-right: 6px;
+        }
+        
+        /* GAYA BARU: QR CODE MODAL */
+        #qrModal.modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        #qrModal.modal .modal-content {
+            transform: scale(1);
+        }
+        #qrModal.modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: visibility 0s, opacity 0.5s;
+        }
+        #qrModal .modal-content {
+            background: linear-gradient(145deg, #1E293B, #0F172A);
+            border: 1px solid #4F46E5;
+            border-radius: 1.25rem;
+            padding: 2rem;
+            max-width: 90%;
+            width: 350px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.5s;
+        }
+        #qrModal #qrCodeDisplay {
+            width: 100%;
+            height: auto;
+            max-width: 250px;
+            margin: 0 auto;
+            display: block;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
         }
 
-        /* Further reduce QR code image size */
-        #qrCodeImage {
-            max-width: 120px; /* Reduced max-width for the QR image */
-            padding: 0.5rem; /* Reduced padding around QR */
+        /* Gaya baru untuk tombol Salin di modal pembayaran manual */
+        .copy-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #6366F1, #3B82F6); /* Gradien biru-ungu */
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .swal2-popup.qris-modal .swal2-title {
-            font-size: 1.5rem !important; /* Smaller title in QR modal */
-            margin-bottom: 0.5rem !important;
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1);
         }
-        .swal2-popup.qris-modal .text-gray-400 {
-            font-size: 0.875rem !important; /* Smaller text */
-        }
-        .swal2-popup.qris-modal .text-3xl {
-            font-size: 2rem !important; /* Smaller nominal text */
-        }
-        .modal-container h2 {
-            font-size: 1.75rem !important; /* Smaller manual payment title */
-        }
-        .modal-container p {
-            font-size: 0.875rem; /* Smaller paragraph text */
+        .copy-button svg {
+            margin-right: 0.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            fill: currentColor;
         }
     </style>
 </head>
+<body class="bg-gray-900 text-gray-100">
 
-<body class="flex items-center justify-center p-4 relative">
-    <div class="relative w-full max-w-md bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-indigo-500">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Support Me</h1>
-            <p class="text-gray-300 text-sm tracking-wide">Dulpan Adi Saragih</p>
+    <div class="w-full max-w-md bg-slate-900/80 backdrop-blur-sm p-6 rounded-3xl shadow-2xl border border-indigo-600 space-y-6">
+        <div class="flex flex-col items-center space-y-3">
+            <div class="h-24 w-24 rounded-full overflow-hidden border-4 border-indigo-500 shadow-lg animate-pulse-light">
+                <img src="/Asset/dulpansrgih.png" alt="Profile" class="w-full h-full object-cover">
+            </div>
+            <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-sky-400">Dulpan Adi Saragih</h1>
+            <p class="text-gray-400 text-sm">Terima kasih atas donasi dan dukungannya!</p>
         </div>
-
+        
         <div class="space-y-4">
             <div>
                 <label class="block text-sm font-medium text-gray-400 mb-2"><b>Nominal (IDR)</b></label>
                 <div class="relative">
-                    <input type="text" id="nominalInput" class="w-full px-4 py-3 bg-slate-800 text-gray-100 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" placeholder="Masukkan Nominal" onkeyup="formatNominal(this)">
+                    <input type="text" id="nominalInput" class="w-full px-4 py-3 bg-slate-800 text-gray-100 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" placeholder="Masukkan Nominal" onkeyup="formatNominal(this)" inputmode="numeric" pattern="[0-9]*">
                     <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">IDR</span>
                 </div>
                 <div class="block text-sm font-medium text-gray-600 mb-3"> Pembayaran via <i>Qris</i> minimal 1 Rupiah</div>
             </div>
 
-            <div class="flex space-x-2">
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(10000)">IDR 10.000</button>
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(25000)">IDR 25.000</button>
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:opacity-90" onclick="setNominal(50000)">IDR 50.000</button>
+            <div class="grid grid-cols-3 gap-3">
+                <button onclick="setNominal(5000)" class="px-4 py-2 bg-slate-800 border border-gray-700 rounded-xl text-gray-300 hover:bg-slate-700 transition duration-300">Rp 5rb</button>
+                <button onclick="setNominal(10000)" class="px-4 py-2 bg-slate-800 border border-gray-700 rounded-xl text-gray-300 hover:bg-slate-700 transition duration-300">Rp 10rb</button>
+                <button onclick="setNominal(25000)" class="px-4 py-2 bg-slate-800 border border-gray-700 rounded-xl text-gray-300 hover:bg-slate-700 transition duration-300">Rp 25rb</button>
+                <button onclick="setNominal(50000)" class="px-4 py-2 bg-slate-800 border border-gray-700 rounded-xl text-gray-300 hover:bg-slate-700 transition duration-300">Rp 50rb</button>
+                <button onclick="setNominal(100000)" class="px-4 py-2 bg-slate-800 border border-gray-700 rounded-xl text-gray-300 hover:bg-slate-700 transition duration-300">Rp 100rb</button>
+                <button onclick="setNominal(200000)" class="px-4 py-2 bg-slate-800 border border-gray-700 rounded-xl text-gray-300 hover:bg-slate-700 transition duration-300">Rp 200rb</button>
             </div>
-            <br>
-            <button id="convertBtn" class="w-full bg-gradient-to-r from-indigo-600 to-teal-500 text-white py-3 rounded-xl hover:opacity-90 glow-button transition duration-300 text-lg font-semibold shadow-xl transform active:scale-95 animate-pulse-light">
-                Pay with Qris
+
+            <button id="convertBtn" class="w-full py-4 text-center rounded-2xl text-white font-bold text-lg bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zm0 9h7v7H4zm9-9h7v7h-7zm0 9h7v7h-7z"/></svg>
+                Bayar dengan QRIS
             </button>
-             
-            <br>
-            <hr>
-            <button class="payment-button" onclick="openManualPaymentModal()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/>
+            
+            <button onclick="openManualPaymentModal()" class="w-full py-4 text-center rounded-2xl text-white font-bold text-lg bg-slate-700 hover:bg-slate-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M19 19H5V8h14m-3-7h-8a2 2 0 0 0-2 2v2h12V3a2 2 0 0 0-2-2m-1 8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1Z"/></svg>
+                Metode Pembayaran Lain
+            </button>
+        </div>
+        
+        <div class="text-center text-gray-500 text-xs mt-6">
+            <p>Create by ❤️ Dulpan Adi Saragih</p>
+        </div>
+    </div>
+    
+    <div id="manualPaymentModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 transition-opacity duration-300 opacity-0 hidden">
+        <div class="modal-container transition-transform duration-300 transform scale-95">
+            <div class="close-button-container" onclick="closeModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                Manual Payment
-            </button>
-
-            <div class="mt-6 text-center text-gray-400 text-sm">
-                <p>Setiap <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300">Kontribusi</span> Membentuk <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Masa Depan</span></p>
             </div>
+            <h2 class="text-2xl font-bold text-white mb-2 text-center">Metode Pembayaran</h2>
+            <p class="text-gray-400 text-sm mb-6 text-center">Pilih metode manual di bawah ini</p>
+            
+            <div class="manual-payment-container">
+                <div id="cardSlider" class="card-slider">
+                    <div class="payment-card-new">
+                        <img src="/Asset/BRI.png" alt="BRI" class="h-10 mb-4">
+                        <p class="text-gray-300 text-sm mb-1"><b>Bank Rakyat Indonesia</b></p>
+                        <p class="text-lg font-bold text-white mb-2">015* **** **** *09</p>
+                        <p class="text-gray-400 text-xs mb-4">a/n Dulpan Adi Saragih</p>
+                        <button onclick="copyToClipboard('015601058779509')" class="copy-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+                            Salin No. Rekening
+                        </button>
+                    </div>
+                    <div class="payment-card-new">
+                        <img src="/Asset/SEABANK.png" alt="SEABANK" class="h-10 mb-4">
+                        <p class="text-gray-300 text-sm mb-1"><b>Bank SeaBank Indonesia</b></p>
+                        <p class="text-lg font-bold text-white mb-2">901* **** *795</p>
+                        <p class="text-gray-400 text-xs mb-4">a/n Dulpan Adi Saragih</p>
+                        <button onclick="copyToClipboard('901034669795')" class="copy-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+                            Salin No. Rekening
+                        </button>
+                    </div>
+                    <div class="payment-card-new">
+                        <img src="/Asset/SPAY.png" alt="SPAY" class="h-10 mb-4">
+                        <p class="text-gray-300 text-sm mb-1"><b>Shopee Pay</b></p>
+                        <p class="text-lg font-bold text-white mb-2">085* **** *941</p>
+                        <p class="text-gray-400 text-xs mb-4">a/n Dulpan Adi Saragih</p>
+                        <button onclick="copyToClipboard('085229592941')" class="copy-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+                            Salin No. ShopeePay
+                        </button>
+                    </div>
+                    <div class="payment-card-new">
+                        <img src="/Asset/DANA.png" alt="DANA" class="h-10 mb-4">
+                        <p class="text-gray-300 text-sm mb-1"><b>Dompet Digital Indonesia (DANA)</b></p>
+                        <p class="text-lg font-bold text-white mb-2">085* **** *941</p>
+                        <p class="text-gray-400 text-xs mb-4">a/n Dulpan Adi Saragih</p>
+                        <button onclick="copyToClipboard('085229592941')" class="copy-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+                            Salin No. DANA
+                        </button>
+                    </div>
+                    <div class="payment-card-new">
+                        <img src="/Asset/OVO.png" alt="OVO" class="h-10 mb-4">
+                        <p class="text-gray-300 text-sm mb-1"><b>Visionet Internasional (OVO)</b></p>
+                        <p class="text-lg font-bold text-white mb-2">085* **** *941</p>
+                        <p class="text-gray-400 text-xs mb-4">a/n Dulpan Adi Saragih</p>
+                        <button onclick="copyToClipboard('085229592941')" class="copy-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+                            Salin No. OVO
+                        </button>
+                    </div>
+                    <div class="payment-card-new">
+                        <img src="/Asset/PAYPAL.png" alt="PAYPAL" class="h-10 mb-4">
+                        <p class="text-gray-300 text-sm mb-1"><b>Demo Payment Wallet</b></p>
+                        <p class="text-lg font-bold text-white mb-2">0852 2959 2941</p>
+                        <p class="text-gray-400 text-xs mb-4">a/n Dulpan Adi Saragih</p>
+                        <a href="tel:085229592941" class="w-full py-3 rounded-xl text-white font-bold bg-gradient-to-r from-violet-600 to-indigo-500 hover:from-violet-700 hover:to-indigo-600 transition-all flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2V8h2v8zm-2-12h2V4h-2v12z"/>
+                            </svg>
+                            PAY NOW!
+                        </a>
+                    </div>
 
-            <div class="mt-10 text-center text-gray-400 text-sm">
-                <button onclick="location.href='https://shopee.co.id/dulpansrgih';">
-                    <svg class="w-6 h-6 inline-block text-gray-500 hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-4 space-x-2">
+                <span class="dot w-3 h-3 bg-gray-600 rounded-full cursor-pointer transition-colors" onclick="currentCardIndex = 0; updateSlider()"></span>
+                <span class="dot w-3 h-3 bg-gray-600 rounded-full cursor-pointer transition-colors" onclick="currentCardIndex = 1; updateSlider()"></span>
+                <span class="dot w-3 h-3 bg-gray-600 rounded-full cursor-pointer transition-colors" onclick="currentCardIndex = 2; updateSlider()"></span>
+                <span class="dot w-3 h-3 bg-gray-600 rounded-full cursor-pointer transition-colors" onclick="currentCardIndex = 3; updateSlider()"></span>
+                <span class="dot w-3 h-3 bg-gray-600 rounded-full cursor-pointer transition-colors" onclick="currentCardIndex = 4; updateSlider()"></span>
+                <span class="dot w-3 h-3 bg-gray-600 rounded-full cursor-pointer transition-colors" onclick="currentCardIndex = 5; updateSlider()"></span>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeQRModal()" class="close-button-container" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-2xl font-bold text-white mb-2 text-center">Scan QRIS</h2>
+            <p class="text-gray-400 text-sm mb-4 text-center">Gunakan aplikasi perbankan atau e-wallet Anda.</p>
+            <div id="qr-container" class="my-4">
+                <img id="qrCodeDisplay" src="" alt="QR Code" class="w-full h-auto">
+            </div>
+            <p class="text-gray-400 text-sm mb-2">Nominal:</p>
+            <h3 id="qrNominalText" class="text-white text-3xl font-bold mb-4"></h3>
+            
+            <div class="flex flex-col space-y-3">
+                <button onclick="confirmWhatsApp()" class="py-3 px-6 rounded-xl text-white font-bold bg-[#25D366] hover:bg-[#128C7E] transition-colors duration-300 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.04 2.87c-5.46 0-9.92 4.45-9.92 9.93 0 1.94.55 3.75 1.54 5.34l-1.6 4.88 5.02-1.57a9.88 9.88 0 0 0 4.96 1.34c5.46 0 9.92-4.46 9.92-9.93s-4.46-9.92-9.92-9.92zm4.33 13.93s-.26-.14-1.29-.63c-.15-.08-.85-.41-.98-.46-.14-.07-.29-.08-.42.08-.13.16-.5.63-.61.76-.11.13-.23.15-.43.04-.21-.11-1.03-.38-1.97-1.22-.73-.65-1.22-1.46-1.35-1.68-.14-.2-.01-.31.11-.42.1-.1.22-.25.33-.37.11-.12.14-.2.2-.33.06-.12.03-.23-.09-.58-.12-.34-.98-2.36-1.34-3.23-.35-.87-.71-.75-.98-.77s-.59-.02-.91-.02c-.32 0-.85.12-1.16.41-.31.29-1.18 1.15-1.18 2.82 0 1.68 1.21 3.27 1.38 3.49.17.22 2.39 3.82 5.79 5.25 3.39 1.44 3.48.97 4.1.91.61-.06 1.95-.79 2.23-1.64.28-.85.28-1.58.19-1.74-.08-.15-.31-.24-.65-.41z"/>
                     </svg>
+                    Konfirmasi via WhatsApp
+                </button>
+                <button onclick="downloadQRCode()" class="py-3 px-6 rounded-xl text-white font-bold bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18h14v2H5z"/></svg>
+                    Unduh QR Code
                 </button>
             </div>
-             
-            <br>
-            <div class="mt-6 text-center text-gray-400 text-sm">
-                <p>Powered by 💎</p>
-                <p><span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.dulpanadisaragih.my.id/">Dulpan Adi Saragih </a></span> || 
-                <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300"><a href="https://www.instagram.com/dulpansrgih_">@dulpansrgih_ </a></span></p>
-            </div>
         </div>
     </div>
 
-<div id="manualPaymentModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-    <div class="modal-container relative mx-4 p-6 sm:p-8 bg-gradient-to-br from-slate-900 to-gray-900 rounded-2xl shadow-2xl border border-indigo-600 transform scale-95 transition-transform duration-300">
-        <div class="close-button-container">
-            <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors z-20">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-            </button>
-        </div>
-         
-        <h2 class="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300 text-center mb-4">Pilih Metode Pembayaran</h2>
-        <p class="text-center text-gray-400 text-sm sm:text-base mb-6 max-w-md mx-auto">
-            Selesaikan pembayaran Anda dengan mudah melalui pilihan bank atau e-wallet di bawah ini.
-        </p>
+    <script>
+        const STATIC_QRIS = "00020101021126690021ID.CO.BANKMANDIRI.WWW01189360000801165178860211711651788620303UMI51440014ID.CO.QRIS.WWW0215ID10222328889510303UMI5204573253033605802ID5918DULPAN ADI SARAGIH6012Sleman (Kab)61055528562070703A0163046EB4";
+        const WHATSAPP_NUMBER = "6285229592941";
 
-        <div class="manual-payment-container relative overflow-hidden">
-            <div id="cardSlider" class="card-slider">
-                <div class="payment-card-new flex-shrink-0 w-full p-4 space-y-3">
-                    <div class="h-10 w-auto mb-2 mx-auto flex items-center justify-center"> <img src="/Asset/BRI.png" alt="BRI Logo" class="h-full">
-                    </div>
-                    <p class="text-xs text-gray-300">Bank Rakyat Indonesia</p> <p class="font-extrabold text-white text-xl sm:text-2xl mb-2">015* **** **** *09</p>
-                    <p class="text-xs text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('015601058779509')" class="mt-auto px-5 py-2 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
-                    </button>
-                </div>
-                 
-                <div class="payment-card-new flex-shrink-0 w-full p-4 space-y-3">
-                    <div class="h-10 w-auto mb-2 mx-auto flex items-center justify-center">
-                        <img src="/Asset/SEABANK.png" alt="SeaBank Logo" class="h-full">
-                    </div>
-                    <p class="text-xs text-gray-300">Bank SeaBank Indonesia</p>
-                    <p class="font-extrabold text-white text-xl sm:text-2xl mb-2">901* **** *795</p>
-                    <p class="text-xs text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('901034669795')" class="mt-auto px-5 py-2 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
-                    </button>
-                </div>
-
-                <div class="payment-card-new flex-shrink-0 w-full p-4 space-y-3">
-                    <div class="h-10 w-auto mb-2 mx-auto flex items-center justify-center">
-                        <img src="/Asset/SPAY.png" alt="SPAY Logo" class="h-full">
-                    </div>
-                    <p class="text-xs text-gray-300">Shopee Pay</p>
-                    <p class="font-extrabold text-white text-xl sm:text-2xl mb-2">085* **** *941</p>
-                    <p class="text-xs text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('085229592941')" class="mt-auto px-5 py-2 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
-                    </button>
-                </div>
-
-                <div class="payment-card-new flex-shrink-0 w-full p-4 space-y-3">
-                    <div class="h-10 w-auto mb-2 mx-auto flex items-center justify-center">
-                        <img src="/Asset/DANA.png" alt="DANA Logo" class="h-full">
-                    </div>
-                    <p class="text-xs text-gray-300">Dompet Digital Indonesia (DANA)</p>
-                    <p class="font-extrabold text-white text-xl sm:text-2xl mb-2">085* **** *941</p>
-                    <p class="text-xs text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('085229592941')" class="mt-auto px-5 py-2 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
-                    </button>
-                </div>
-
-                <div class="payment-card-new flex-shrink-0 w-full p-4 space-y-3">
-                    <div class="h-10 w-auto mb-2 mx-auto flex items-center justify-center">
-                        <img src="/Asset/OVO.png" alt="OVO Logo" class="h-full">
-                    </div>
-                    <p class="text-xs text-gray-300">Visionet Internasional (OVO)</p>
-                    <p class="font-extrabold text-white text-xl sm:text-2xl mb-2">085* **** *941</p>
-                    <p class="text-xs text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('085229592941')" class="mt-auto px-5 py-2 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
-                    </button>
-                </div>
-
-                <div class="payment-card-new flex-shrink-0 w-full p-4 space-y-3">
-                    <div class="h-10 w-auto mb-2 mx-auto flex items-center justify-center">
-                        <img src="/Asset/PAYPAL.png" alt="PAYPAL Logo" class="h-full">
-                    </div>
-                    <p class="text-xs text-gray-300">PAYPAL WALLET</p>
-                    <p class="font-extrabold text-white text-xl sm:text-2xl mb-2">085* **** *941</p>
-                    <p class="text-xs text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('085229592941')" class="mt-auto px-5 py-2 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
-                    </button>
-                </div>
-            </div>
-
-            <button onclick="moveSlider(-1)" class="slider-nav left-0 bg-slate-800/50 hover:bg-slate-700/70 p-2 sm:p-3 rounded-full text-white mx-2">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-            </button>
-            <button onclick="moveSlider(1)" class="slider-nav right-0 bg-slate-800/50 hover:bg-slate-700/70 p-2 sm:p-3 rounded-full text-white mx-2">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-            </button>
-             
-            <div id="sliderDots" class="flex justify-center mt-6 space-x-2">
-                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
-                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
-                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
-                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
-                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
-                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    const STATIC_QRIS = "00020101021126690021ID.CO.BANKMANDIRI.WWW01189360000801165178860211711651788620303UMI51440014ID.CO.QRIS.WWW0215ID10222328889510303UMI5204573253033605802ID5918DULPAN ADI SARAGIH6012Sleman (Kab)61055528562070703A0163046EB4";
-    const WHATSAPP_NUMBER = "6281260840134";
-
-    function formatNominal(input) {
-        let value = input.value.replace(/\D/g, '');
-        if (value) {
-            value = parseInt(value).toLocaleString('id-ID');
-            input.value = value;
-        }
-    }
-
-    function setNominal(value) {
-        const input = document.getElementById('nominalInput');
-        input.value = value.toLocaleString('id-ID');
-    }
-
-    function ConvertCRC16(str) {
-        let crc = 0xFFFF;
-        for (let c = 0; c < str.length; c++) {
-            crc ^= str.charCodeAt(c) << 8;
-            for (let i = 0; i < 8; i++) {
-                crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
+        function formatNominal(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value) {
+                value = parseInt(value).toLocaleString('id-ID');
+                input.value = value;
             }
         }
-        return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
-    }
 
-    function generateQRCode(text) {
-        const nominalInput = document.getElementById('nominalInput');
-        const qty = nominalInput.value.replace(/\D/g, '');
-
-        // Generate QR code only if nominal is valid
-        if (!qty || isNaN(qty) || parseInt(qty) < 1) {
-            Swal.fire({ icon: 'error', title: 'Nominal Tidak Valid', text: 'Masukkan angka nominal terlebih dahulu.', confirmButtonColor: '#3B82F6' });
-            return;
+        function setNominal(value) {
+            const input = document.getElementById('nominalInput');
+            input.value = value.toLocaleString('id-ID');
         }
 
-        const qr = qrcode(0, 'M');
-        qr.addData(text);
-        qr.make();
+        function ConvertCRC16(str) {
+            let crc = 0xFFFF;
+            for (let c = 0; c < str.length; c++) {
+                crc ^= str.charCodeAt(c) << 8;
+                for (let i = 0; i < 8; i++) {
+                    crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
+                }
+            }
+            return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+        }
 
-        const qrDataURL = qr.createDataURL(10);
-        const nominalValue = document.getElementById('nominalInput').value;
+        function openQRModal(qrDataURL, nominalValue) {
+            const modal = document.getElementById('qrModal');
+            const qrCodeImage = document.getElementById('qrCodeDisplay');
+            const nominalText = document.getElementById('qrNominalText');
 
-        Swal.fire({
-            title: 'Scan QR Code',
-            html: `<div class="loading-bar"></div><br><p class="text-gray-600">QRIS Generate...</p>`,
-            timer: 1000,
-            timerProgressBar: true,
-            didOpen: () => {
-                Swal.showLoading();
-            },
-            willClose: () => {
+            qrCodeImage.src = qrDataURL;
+            nominalText.innerText = `Rp ${nominalValue}`;
+
+            modal.classList.add('active');
+        }
+
+        function closeQRModal() {
+            const modal = document.getElementById('qrModal');
+            modal.classList.remove('active');
+        }
+
+        function generateQRCode(text) {
+            const nominalInput = document.getElementById('nominalInput');
+            const qty = nominalInput.value.replace(/\D/g, '');
+
+            if (!qty || isNaN(qty) || parseInt(qty) < 1) {
+                Swal.fire({ icon: 'error', title: 'Nominal Tidak Valid', text: 'Masukkan angka nominal terlebih dahulu.', confirmButtonColor: '#3B82F6' });
+                return;
+            }
+
+            const qr = qrcode(0, 'M');
+            qr.addData(text);
+            qr.make();
+
+            const qrDataURL = qr.createDataURL(10);
+            const nominalValue = nominalInput.value;
+
+            openQRModal(qrDataURL, nominalValue);
+        }
+        
+        function convertQRIS() {
+            const nominalInput = document.getElementById('nominalInput');
+            const qty = nominalInput.value.replace(/\D/g, '');
+
+            if (!qty || isNaN(qty) || parseInt(qty) < 1) {
+                Swal.fire({ icon: 'error', title: 'Nominal Tidak Valid', text: 'Masukkan angka nominal terlebih dahulu.', confirmButtonColor: '#3B82F6' });
+                return;
+            }
+
+            Swal.fire({
+                title: "Konfirmasi Donasi",
+                text: `Anda akan mendonasikan IDR ${parseInt(qty).toLocaleString('id-ID')}. Lanjutkan?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Ya, lanjutkan!",
+                cancelButtonText: "Batal",
+                confirmButtonColor: "#10B981",
+                customClass: {
+                    popup: 'bg-slate-900/80 text-white border border-indigo-600',
+                    confirmButton: 'swal2-styled swal2-confirm',
+                    cancelButton: 'swal2-styled'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let qris = STATIC_QRIS.slice(0, -4);
+                    let step1 = qris.replace("010211", "010212");
+                    let step2 = step1.split("5802ID");
+                    let uang = "54" + qty.length.toString().padStart(2, '0') + qty + "5802ID";
+                    const finalQR = step2[0].trim() + uang + step2[1].trim() + ConvertCRC16(step2[0] + uang + step2[1]);
+                    generateQRCode(finalQR);
+                }
+            });
+        }
+
+        function openManualPaymentModal() {
+            const modal = document.getElementById('manualPaymentModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('.transform').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('manualPaymentModal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('.transform').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
                 Swal.fire({
-                    title: 'Scan QRIS di bawah ini',
-                    html: `
-                        <div class="flex flex-col items-center p-4">
-                            <p class="text-gray-400 text-sm mb-2">Nominal Donasi Anda:</p> <p class="font-bold text-white text-2xl mb-3 bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300 inline-block">Rp ${nominalValue}</p> <img id="qrCodeImage" src="${qrDataURL}" alt="Kode QR" class="mx-auto border-4 border-white rounded-lg shadow-lg mb-4" style="max-width: 120px;"> 
-                        </div>
-                    `,
-                    showCloseButton: true,
+                    icon: 'success',
+                    title: 'Berhasil disalin!',
+                    text: 'Nomor Rekening/e-Wallet berhasil disalin! Lanjut ke WhatsApp untuk konfirmasi?',
                     showConfirmButton: true,
                     showCancelButton: true,
-                    confirmButtonText: `
-                        <span class="flex items-center">
-                            <svg class="button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0007 2C6.4777 2 2.0007 6.477 2.0007 12C2.0007 14.152 2.6727 16.208 3.8647 17.986L2.3087 22.383L7.0277 20.828C8.7957 21.666 10.8407 22.0007 12.0007 22.0007C17.5237 22.0007 22.0007 17.5237 22.0007 12.0007C22.0007 6.4777 17.5237 2 12.0007 2ZM17.1527 15.31C16.8227 15.932 14.5077 17.168 14.0757 17.29C13.6427 17.412 13.3157 17.412 11.2337 16.69C9.0777 15.968 7.6497 14.474 7.5457 14.341C7.4417 14.208 7.3377 13.982 7.0077 13.568C6.6787 13.153 6.0967 12.386 6.0967 11.226C6.0967 10.065 6.7777 9.878 7.0607 9.774C7.3437 9.67 7.7477 9.516 8.0037 9.516C8.2587 9.516 8.5137 9.516 8.6817 9.704C8.8507 9.891 9.0667 10.198 9.1707 10.435C9.2747 10.672 9.4427 10.966 9.3487 11.168C9.2547 11.371 9.1157 11.539 8.9477 11.726C8.7787 11.913 8.6507 12.067 8.5237 12.245C8.3957 12.423 7.8287 12.827 8.3957 13.754C8.9627 14.681 9.9407 15.006 10.1807 15.068C10.4207 15.13 10.6757 15.13 11.0057 14.943C11.3357 14.756 12.1857 14.28 12.4547 14.015C12.7237 13.75 13.1907 13.617 13.6237 13.795C14.0567 13.972 14.6787 14.28 14.9337 14.535C15.1887 14.79 15.3567 14.958 15.6037 15.08C15.8507 15.203 16.1957 15.203 16.5257 15.015C16.8557 14.828 17.0717 14.341 17.2037 14.098C17.3357 13.856 17.4397 13.75 17.5237 13.719C17.6077 13.688 17.8477 13.584 18.0647 13.688C18.2807 13.792 18.5207 14.217 18.2807 14.694C18.0407 15.171 17.4877 15.465 17.1527 15.31Z" fill="white"/>
-                            </svg>
-                            Konfirmasi via WA
-                        </span>
-                    `,
-                    cancelButtonText: `
-                        <span class="flex items-center">
-                            <svg class="button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="white"/>
-                            </svg>
-                            Download QR
-                        </span>
-                    `,
-                    confirmButtonColor: '#25D366',
-                    cancelButtonColor: '#007bff',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
+                    confirmButtonText: 'WhatsApp',
+                    cancelButtonText: 'Selesai',
                     customClass: {
-                        popup: 'qris-modal',
-                        title: 'text-white text-xl font-bold bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-300',
-                        htmlContainer: 'text-center',
-                        closeButton: 'swal2-close',
+                        popup: 'bg-slate-900/80 text-white border border-indigo-600',
+                        confirmButton: 'swal2-styled swal2-confirm',
+                        cancelButton: 'swal2-styled'
                     },
-                    didOpen: (modalElement) => {
-                        const closeBtn = modalElement.querySelector('.swal2-close');
-                        closeBtn.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
-                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        const message = `Halo, saya telah melakukan donasi sebesar Rp ${nominalValue} melalui QRIS. Mohon konfirmasinya.`;
-                        const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                        const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Halo, saya sudah melakukan transfer. Mohon konfirmasinya.')}`;
                         window.open(whatsappURL, '_blank');
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        const link = document.createElement('a');
-                        link.href = qrDataURL;
-                        link.download = `QRIS_${nominalValue.replace(/\./g, '')}.png`;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
                     }
                 });
-            }
-        });
-    }
-
-    function convertQRIS() {
-        const nominalInput = document.getElementById('nominalInput');
-        const qty = nominalInput.value.replace(/\D/g, '');
-
-        if (!qty || isNaN(qty) || parseInt(qty) < 1) {
-            Swal.fire({ icon: 'error', title: 'Nominal Tidak Valid', text: 'Masukkan angka nominal terlebih dahulu.', confirmButtonColor: '#3B82F6' });
-            return;
+            }).catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Menyalin',
+                    text: 'Terjadi kesalahan. Silakan coba salin manual.',
+                    confirmButtonColor: '#3B82F6'
+                });
+            });
+        }
+        
+        // Fungsi untuk tombol WhatsApp
+        function confirmWhatsApp() {
+            const nominalInput = document.getElementById('nominalInput');
+            const nominalValue = nominalInput.value;
+            const message = `Halo, saya sudah melakukan pembayaran via QRIS sebesar *Rp ${nominalValue}*. Mohon konfirmasinya.`;
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
         }
 
-        Swal.fire({
-            title: "Konfirmasi Donasi",
-            text: `Anda akan mendonasikan IDR ${parseInt(qty).toLocaleString('id-ID')}. Lanjutkan?`,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Ya, lanjutkan!",
-            cancelButtonText: "Batal",
-            confirmButtonColor: "#10B981"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                let qris = STATIC_QRIS.slice(0, -4);
-                let step1 = qris.replace("010211", "010212");
-                let step2 = step1.split("5802ID");
-                let uang = "54" + qty.length.toString().padStart(2, '0') + qty + "5802ID";
-                const finalQR = step2[0].trim() + uang + step2[1].trim() + ConvertCRC16(step2[0] + uang + step2[1]);
-                generateQRCode(finalQR);
-            }
-        });
-    }
+        // Fungsi yang diperbarui untuk tombol Download
+        function downloadQRCode() {
+            const qrCodeImage = document.getElementById('qrCodeDisplay');
+            const nominalValue = document.getElementById('nominalInput').value.replace(/\D/g, '');
+            
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+            
+            const link = document.createElement('a');
+            link.href = qrCodeImage.src;
+            link.download = `QRIS-${formattedDate}-${nominalValue}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
-    function openManualPaymentModal() {
-        const modal = document.getElementById('manualPaymentModal');
-        modal.classList.remove('hidden');
-        setTimeout(() => {
-            modal.classList.remove('opacity-0');
-            modal.querySelector('.transform').classList.remove('scale-95');
-        }, 10);
-    }
+        // Slider Script
+        let currentCardIndex = 0;
+        const cardSlider = document.getElementById('cardSlider');
+        const cards = document.querySelectorAll('.payment-card-new');
+        const dots = document.querySelectorAll('.dot');
+        let startX = 0;
+        let isSwiping = false;
 
-    function closeModal() {
-        const modal = document.getElementById('manualPaymentModal');
-        modal.classList.add('opacity-0');
-        modal.querySelector('.transform').classList.add('scale-95');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 300);
-    }
+        function updateSlider() {
+            const offset = -currentCardIndex * 100;
+            cardSlider.style.transform = `translateX(${offset}%)`;
 
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'success',
-                title: 'Berhasil disalin!',
-                text: 'Nomor rekening/ponsel berhasil disalin.',
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true,
-                customClass: {
-                    popup: 'bg-green-700/80 text-white'
-                },
-                background: 'none'
+            cards.forEach((card, index) => {
+                if (index === currentCardIndex) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
             });
-        }).catch(err => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal Menyalin',
-                text: 'Terjadi kesalahan. Silakan coba salin manual.',
-                confirmButtonColor: '#3B82F6'
-            });
-        });
-    }
-
-    let currentCardIndex = 0;
-    const cardSlider = document.getElementById('cardSlider');
-    const cards = document.querySelectorAll('.payment-card-new');
-    const dots = document.querySelectorAll('.dot');
-    let startX = 0;
-    let isSwiping = false;
-
-    function updateSlider() {
-        const offset = -currentCardIndex * 100;
-        cardSlider.style.transform = `translateX(${offset}%)`;
-
-        cards.forEach((card, index) => {
-            if (index === currentCardIndex) {
-                card.classList.add('active');
-            } else {
-                card.classList.remove('active');
-            }
-        });
-         
-        dots.forEach((dot, index) => {
-            if (index === currentCardIndex) {
-                dot.classList.add('bg-indigo-500');
-                dot.classList.remove('bg-gray-600');
-            } else {
-                dot.classList.add('bg-gray-600');
+            
+            dots.forEach((dot, index) => {
                 dot.classList.remove('bg-indigo-500');
+                dot.classList.add('bg-gray-600');
+                if (index === currentCardIndex) {
+                    dot.classList.add('bg-indigo-500');
+                }
+            });
+        }
+
+        function moveSlider(direction) {
+            currentCardIndex += direction;
+            if (currentCardIndex < 0) {
+                currentCardIndex = cards.length - 1;
+            } else if (currentCardIndex >= cards.length) {
+                currentCardIndex = 0;
             }
+            updateSlider();
+        }
+        
+        // Tambahkan event listener untuk swipe
+        cardSlider.addEventListener('touchstart', (e) => {
+            isSwiping = true;
+            startX = e.touches[0].clientX;
         });
-    }
 
-    function moveSlider(direction) {
-        currentCardIndex += direction;
-        if (currentCardIndex < 0) {
-            currentCardIndex = cards.length - 1;
-        } else if (currentCardIndex >= cards.length) {
-            currentCardIndex = 0;
-        }
-        updateSlider();
-    }
+        cardSlider.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            const currentX = e.touches[0].clientX;
+            const diffX = startX - currentX;
+            cardSlider.style.transform = `translateX(${-currentCardIndex * 100 - (diffX / cardSlider.offsetWidth) * 100}%)`;
+        });
 
-    // Swipe functionality for the card slider
-    cardSlider.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        isSwiping = true;
-        cardSlider.style.transition = 'none'; // Matikan transisi saat swipe
-    });
-
-    cardSlider.addEventListener('touchmove', (e) => {
-        if (!isSwiping) return;
-        const currentX = e.touches[0].clientX;
-        const diffX = currentX - startX;
-        const offset = -currentCardIndex * 100 + (diffX / cardSlider.offsetWidth) * 100;
-        cardSlider.style.transform = `translateX(${offset}%)`;
-    });
-
-    cardSlider.addEventListener('touchend', (e) => {
-        if (!isSwiping) return;
-        isSwiping = false;
-        cardSlider.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)'; // Aktifkan lagi transisi
-
-        const endX = e.changedTouches[0].clientX;
-        const diffX = endX - startX;
-
-        // Tentukan apakah swipe cukup jauh untuk mengganti kartu
-        if (Math.abs(diffX) > cardSlider.offsetWidth / 4) { // Toleransi swipe 1/4 lebar kartu
-            if (diffX > 0) {
-                moveSlider(-1); // Swipe kanan
+        cardSlider.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) { // Toleransi geser 50px
+                if (diffX > 0) {
+                    moveSlider(1); // Geser ke kiri
+                } else {
+                    moveSlider(-1); // Geser ke kanan
+                }
             } else {
-                moveSlider(1); // Swipe kiri
+                updateSlider(); // Kembali ke posisi semula
             }
-        } else {
-            updateSlider(); // Kembali ke posisi kartu saat ini jika swipe tidak cukup jauh
-        }
-    });
+            isSwiping = false;
+        });
 
+        // Tambahkan event listener untuk klik dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentCardIndex = index;
+                updateSlider();
+            });
+        });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        updateSlider();
-    });
+        // Initialize slider and dots
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSlider();
+        });
 
-    document.getElementById('convertBtn').addEventListener('click', convertQRIS);
-    document.querySelector('.payment-button').addEventListener('click', openManualPaymentModal);
-
-</script>
+        document.getElementById('convertBtn').addEventListener('click', convertQRIS);
+    </script>
 </body>
 </html>
