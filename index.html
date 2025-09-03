@@ -152,10 +152,13 @@
             border: 1px solid #4F46E5 !important;
             border-radius: 1.5rem !important;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-            padding: 2.5rem !important;
-            max-width: 90% !important; /* Batasi lebar pop-up di mobile */
-            font-size: 1rem !important;
+            padding: 1rem !important; /* Padding lebih kecil */
+            max-width: 95% !important; /* Batasi lebar pop-up di mobile */
+            font-size: 1rem !important;
         }
+        .swal2-popup.qris-modal .swal2-title {
+            font-size: 1.5rem !important;
+        }
 
         /* Posisi tombol close (X) di luar modal QR */
         .swal2-container.swal2-center > .swal2-popup > .swal2-close {
@@ -194,7 +197,7 @@
         .swal2-actions > button svg {
             margin-right: 8px;
         }
-
+        
         /* Penyesuaian khusus untuk mode pembayaran manual di mobile */
         @media (max-width: 768px) {
             .modal-container {
