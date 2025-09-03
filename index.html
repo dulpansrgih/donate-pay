@@ -1,225 +1,196 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dulpan Adi Saragih • Support</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="shortcut icon" href="favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="PAY TO DULPAN AS" />
-    <link rel="manifest" href="favicon/site.webmanifest" />
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #6366F1, #3B82F6);
-            --secondary-gradient: linear-gradient(135deg, #10B981, #34D399);
-        }
-        body { 
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(160deg, #0F172A, #1E293B, #0F172A);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        .glow-button:hover {
-            box-shadow: 0px 0px 15px 3px rgba(99, 102, 241, 0.8);
-            transform: scale(1.05);
-        }
-        .loading-bar {
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, #6366F1, #3B82F6);
-            animation: loading 2s linear infinite;
-        }
-        @keyframes loading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .payment-button {
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 5px 15px;
-            font-size: 12px;
-            cursor: pointer;
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s; 
-        }
-        .payment-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-        }
-        .payment-button svg {
-            margin-right: 10px;
-            fill: white;
-            width: 20px;
-            height: 20px;
-        }
-        
-        .animate-pulse-light {
-            animation: pulse-light 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse-light {
-            0%, 100% {
-                opacity: 1;
-                box-shadow: 0px 0px 0px 0px rgba(99, 102, 241, 0.7);
-            }
-            50% {
-                opacity: 0.7;
-                box-shadow: 0px 0px 10px 5px rgba(99, 102, 241, 0.4);
-            }
-        }
-        
-        .manual-payment-container {
-            position: relative;
-            overflow: hidden;
-        }
-        .card-slider {
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-        .payment-card-new {
-            flex-shrink: 0;
-            width: 100%;
-            padding: 2.5rem;
-            border-radius: 1.5rem;
-            background: linear-gradient(160deg, #0F172A, #1E293B, #0F172A);
-            border: 1px solid transparent;
-            position: relative;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: all 0.5s ease-in-out;
-        }
-        .payment-card-new.active {
-            box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
-            transform: scale(1.05);
-        }
-        .payment-card-new:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-        }
-
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-        }
-
-        .modal-container {
-            position: relative;
-            max-width: 28rem;
-            margin: 0 auto;
-            background: linear-gradient(145deg, #1E293B, #0F172A);
-            border: 1px solid #4F46E5;
-        }
-        .close-button-container {
-            position: absolute;
-            top: -2rem;
-            right: -2rem;
-            z-index: 60;
-            transition: transform 0.3s ease-in-out;
-        }
-        .close-button-container:hover {
-            transform: scale(1.2);
-        }
-        .swal2-confirm {
-            background-color: #25D366 !important;
-        }
-        .swal2-styled.swal2-confirm {
-            background-color: #25D366 !important;
-            color: #fff !important;
-        }
-        .swal2-styled.swal2-confirm:hover {
-            background-color: #128C7E !important;
-        }
-
-        /* Gaya khusus untuk pop-up QR */
-        .swal2-popup.qris-modal {
-            background: linear-gradient(145deg, #1E293B, #0F172A) !important;
-            border: 1px solid #4F46E5 !important;
-            border-radius: 1.5rem !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-            padding: 1rem !important; /* Padding lebih kecil */
-            max-width: 95% !important; /* Batasi lebar pop-up di mobile */
-            font-size: 1rem !important;
-        }
-        .swal2-popup.qris-modal .swal2-title {
-            font-size: 1.5rem !important;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulpan Adi Saragih • Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="PAY TO DULPAN AS" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366F1, #3B82F6);
+            --secondary-gradient: linear-gradient(135deg, #10B981, #34D399);
+        }
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(160deg, #0F172A, #1E293B, #0F172A);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .glow-button:hover {
+            box-shadow: 0px 0px 15px 3px rgba(99, 102, 241, 0.8);
+            transform: scale(1.05);
+        }
+        .loading-bar {
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #6366F1, #3B82F6);
+            animation: loading 2s linear infinite;
+        }
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
-        /* Posisi tombol close (X) di luar modal QR */
-        .swal2-container.swal2-center > .swal2-popup > .swal2-close {
-            position: absolute;
-            top: -1.5rem;
-            right: -1.5rem;
-            background-color: transparent;
-            border: none;
-            font-size: 2.5rem;
-            color: #9CA3AF;
-            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-            z-index: 10;
-            padding: 0;
-            margin: 0;
-        }
-        .swal2-container.swal2-center > .swal2-popup > .swal2-close:hover {
-            color: #FFFFFF;
-            transform: scale(1.2);
-        }
-
-        /* Styling untuk SVG di dalam tombol SweetAlert */
-        .swal2-styled .button-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-            fill: currentColor;
-            vertical-align: middle;
-        }
-        
-        /* Penyesuaian agar SVG dan teks sejajar */
-        .swal2-actions > button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .swal2-actions > button svg {
-            margin-right: 8px;
-        }
+        .payment-button {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 5px 15px;
+            font-size: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s; 
+        }
+        .payment-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        .payment-button svg {
+            margin-right: 10px;
+            fill: white;
+            width: 20px;
+            height: 20px;
+        }
         
-        /* Penyesuaian khusus untuk mode pembayaran manual di mobile */
-        @media (max-width: 768px) {
-            .modal-container {
-                max-width: 95% !important;
-                padding: 1.5rem !important;
+        .animate-pulse-light {
+            animation: pulse-light 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-light {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 0px 0px 0px 0px rgba(99, 102, 241, 0.7);
             }
-            .close-button-container {
-                top: -1.5rem;
-                right: 0.5rem;
+            50% {
+                opacity: 0.7;
+                box-shadow: 0px 0px 10px 5px rgba(99, 102, 241, 0.4);
             }
-            .manual-payment-container {
-                overflow-x: auto;
-            }
-            .card-slider {
-                flex-wrap: nowrap;
-                width: max-content;
-            }
-            .payment-card-new {
-                padding: 1.5rem;
-                margin-right: 1rem;
-                width: 280px; /* Ukuran kartu agar bisa digeser */
-            }
+        }
+        
+        .manual-payment-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-slider {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .payment-card-new {
+            flex-shrink: 0;
+            width: 100%;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            background: linear-gradient(160deg, #0F172A, #1E293B, #0F172A);
+            border: 1px solid transparent;
+            position: relative;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: all 0.5s ease-in-out;
+        }
+        .payment-card-new.active {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
+            transform: scale(1.05);
+        }
+        .payment-card-new:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .modal-container {
+            position: relative;
+            max-width: 28rem;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #1E293B, #0F172A);
+            border: 1px solid #4F46E5;
+        }
+        .close-button-container {
+            position: absolute;
+            top: -2rem;
+            right: -2rem;
+            z-index: 60;
+            transition: transform 0.3s ease-in-out;
+        }
+        .close-button-container:hover {
+            transform: scale(1.2);
+        }
+        .swal2-confirm {
+            background-color: #25D366 !important;
+        }
+        .swal2-styled.swal2-confirm {
+            background-color: #25D366 !important;
+            color: #fff !important;
+        }
+        .swal2-styled.swal2-confirm:hover {
+            background-color: #128C7E !important;
+        }
+
+        /* Gaya khusus untuk pop-up QR */
+        .swal2-popup.qris-modal {
+            background: linear-gradient(145deg, #1E293B, #0F172A) !important;
+            border: 1px solid #4F46E5 !important;
+            border-radius: 1.5rem !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+            padding: 2.5rem !important;
+        }
+
+        /* Posisi tombol close (X) di luar modal QR */
+        .swal2-container.swal2-center > .swal2-popup > .swal2-close {
+            position: absolute;
+            top: -1.5rem;
+            right: -1.5rem;
+            background-color: transparent;
+            border: none;
+            font-size: 2.5rem;
+            color: #9CA3AF;
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+            z-index: 10;
+            padding: 0;
+            margin: 0;
+        }
+        .swal2-container.swal2-center > .swal2-popup > .swal2-close:hover {
+            color: #FFFFFF;
+            transform: scale(1.2);
+        }
+
+        /* Styling untuk SVG di dalam tombol SweetAlert */
+        .swal2-styled .button-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            fill: currentColor;
+            vertical-align: middle;
+        }
+        
+        /* Penyesuaian agar SVG dan teks sejajar */
+        .swal2-actions > button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .swal2-actions > button svg {
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -265,7 +236,7 @@
             </div>
 
             <div class="mt-10 text-center text-gray-400 text-sm">
-                <button onclick="location.href='https://lynk.id/dothebest._';">
+                <button onclick="location.href='https://shopee.co.id/dulpansrgih';">
                     <svg class="w-6 h-6 inline-block text-gray-500 hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
                     </svg>
@@ -298,72 +269,72 @@
             <div id="cardSlider" class="card-slider">
                 <div class="payment-card-new flex-shrink-0 w-full p-6 space-y-4">
                     <div class="h-16 w-auto mb-4 mx-auto flex items-center justify-center">
-                        <img src="https://i.ibb.co/L5w2R00/bca.png" alt="BCA Logo" class="h-full">
+                        <img src="/Asset/BRI.png" alt="BRI Logo" class="h-full">
                     </div>
-                    <p class="text-md text-gray-300">Bank BCA</p>
-                    <p class="font-extrabold text-white text-3xl mb-2">8340455018</p>
+                    <p class="text-md text-gray-300">Bank Rakyat Indonesia</p>
+                    <p class="font-extrabold text-white text-3xl mb-2">015* **** **** *09</p>
                     <p class="text-sm text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('8340455018')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
+                    <button onclick="copyToClipboard('015601058779509')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
                     </button>
                 </div>
                 
                 <div class="payment-card-new flex-shrink-0 w-full p-6 space-y-4">
                     <div class="h-16 w-auto mb-4 mx-auto flex items-center justify-center">
-                        <img src="https://i.ibb.co/V95wQ2Y/bri.png" alt="BRI Logo" class="h-full">
+                        <img src="/Asset/SEABANK.png" alt="SeaBank Logo" class="h-full">
                     </div>
-                    <p class="text-md text-gray-300">Bank BRI</p>
-                    <p class="font-extrabold text-white text-3xl mb-2">718201003490502</p>
+                    <p class="text-md text-gray-300">Bank SeaBank Indonesia</p>
+                    <p class="font-extrabold text-white text-3xl mb-2">901* **** *795</p>
                     <p class="text-sm text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('718201003490502')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
+                    <button onclick="copyToClipboard('901034669795')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
                     </button>
                 </div>
 
                 <div class="payment-card-new flex-shrink-0 w-full p-6 space-y-4">
                     <div class="h-16 w-auto mb-4 mx-auto flex items-center justify-center">
-                        <img src="https://i.ibb.co/p30BwW0/dana.png" alt="DANA Logo" class="h-full">
+                        <img src="/Asset/SPAY.png" alt="SPAY Logo" class="h-full">
                     </div>
-                    <p class="text-md text-gray-300">DANA</p>
-                    <p class="font-extrabold text-white text-3xl mb-2">081260840134</p>
+                    <p class="text-md text-gray-300">Shopee Pay</p>
+                    <p class="font-extrabold text-white text-3xl mb-2">085* **** *941</p>
                     <p class="text-sm text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('081260840134')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
+                    <button onclick="copyToClipboard('085229592941')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
                     </button>
                 </div>
 
                 <div class="payment-card-new flex-shrink-0 w-full p-6 space-y-4">
                     <div class="h-16 w-auto mb-4 mx-auto flex items-center justify-center">
-                        <img src="https://i.ibb.co/6P0xWqF/ovo-logo.png" alt="OVO Logo" class="h-full">
+                        <img src="/Asset/DANA.png" alt="DANA Logo" class="h-full">
                     </div>
-                    <p class="text-md text-gray-300">OVO</p>
-                    <p class="font-extrabold text-white text-3xl mb-2">081260840134</p>
+                    <p class="text-md text-gray-300">Dompet Digital Indonesia (DANA)</p>
+                    <p class="font-extrabold text-white text-3xl mb-2">085* **** *941</p>
                     <p class="text-sm text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('081260840134')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
+                    <button onclick="copyToClipboard('085229592941')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
                     </button>
                 </div>
 
                 <div class="payment-card-new flex-shrink-0 w-full p-6 space-y-4">
                     <div class="h-16 w-auto mb-4 mx-auto flex items-center justify-center">
-                        <img src="https://i.ibb.co/9gP1b09/gopay-logo-D3739AE95F-seeklogo-com.png" alt="Gopay Logo" class="h-full">
+                        <img src="/Asset/OVO.png" alt="OVO Logo" class="h-full">
                     </div>
-                    <p class="text-md text-gray-300">Gopay</p>
-                    <p class="font-extrabold text-white text-3xl mb-2">081260840134</p>
+                    <p class="text-md text-gray-300">Visionet Internasional (OVO)</p>
+                    <p class="font-extrabold text-white text-3xl mb-2">085* **** *941</p>
                     <p class="text-sm text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('081260840134')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
+                    <button onclick="copyToClipboard('085229592941')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
                     </button>
                 </div>
 
                 <div class="payment-card-new flex-shrink-0 w-full p-6 space-y-4">
                     <div class="h-16 w-auto mb-4 mx-auto flex items-center justify-center">
-                        <img src="https://i.ibb.co/X8X613f/qris.png" alt="QRIS Logo" class="h-full">
+                        <img src="/Asset/PAYPAL.png" alt="PAYPAL Logo" class="h-full">
                     </div>
-                    <p class="text-md text-gray-300">QRIS</p>
-                    <p class="font-extrabold text-white text-3xl mb-2">081260840134</p>
+                    <p class="text-md text-gray-300">PAYPAL WALLET</p>
+                    <p class="font-extrabold text-white text-3xl mb-2">085* **** *941</p>
                     <p class="text-sm text-gray-400 mb-4">A/n: Dulpan Adi Saragih</p>
-                    <button onclick="copyToClipboard('081260840134')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
+                    <button onclick="copyToClipboard('085229592941')" class="mt-auto px-8 py-3 bg-indigo-700 hover:bg-indigo-600 text-white rounded-lg flex items-center justify-center transition-colors">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Salin Nomor
                     </button>
                 </div>
@@ -377,6 +348,12 @@
             </button>
             
             <div id="sliderDots" class="flex justify-center mt-6 space-x-2">
+                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
+                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
+                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
+                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
+                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
+                <span class="dot w-2 h-2 bg-gray-600 rounded-full transition-colors cursor-pointer"></span>
             </div>
         </div>
     </div>
@@ -561,15 +538,13 @@
     }
 
     let currentCardIndex = 0;
-    let cards = [];
-    let dots = [];
+    const cardSlider = document.getElementById('cardSlider');
+    const cards = document.querySelectorAll('.payment-card-new');
+    const dots = document.querySelectorAll('.dot');
     
     function updateSlider() {
         const offset = -currentCardIndex * 100;
-        const cardSlider = document.getElementById('cardSlider');
-        if (cardSlider) {
-            cardSlider.style.transform = `translateX(${offset}%)`;
-        }
+        cardSlider.style.transform = `translateX(${offset}%)`;
 
         cards.forEach((card, index) => {
             if (index === currentCardIndex) {
@@ -599,33 +574,14 @@
         }
         updateSlider();
     }
-    
-    // Fungsi untuk membuat dots secara dinamis
-    function createDots() {
-        const sliderDotsContainer = document.getElementById('sliderDots');
-        if (sliderDotsContainer) {
-            sliderDotsContainer.innerHTML = '';
-            cards.forEach((_, index) => {
-                const dot = document.createElement('span');
-                dot.classList.add('dot', 'w-2', 'h-2', 'bg-gray-600', 'rounded-full', 'transition-colors', 'cursor-pointer');
-                dot.addEventListener('click', () => {
-                    currentCardIndex = index;
-                    updateSlider();
-                });
-                sliderDotsContainer.appendChild(dot);
-            });
-            dots = document.querySelectorAll('.dot');
-            updateSlider();
-        }
-    }
 
     document.addEventListener('DOMContentLoaded', () => {
-        cards = document.querySelectorAll('.payment-card-new');
-        createDots();
+        updateSlider();
     });
 
     document.getElementById('convertBtn').addEventListener('click', convertQRIS);
     document.querySelector('.payment-button').addEventListener('click', openManualPaymentModal);
+
 </script>
 </body>
 </html>
